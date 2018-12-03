@@ -1,22 +1,15 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-10-18T19:58:08
+# Project created by QtCreator 2018-11-30T15:22:19
 #
 #-------------------------------------------------
 
 QT       += core gui
 
-QT       += opengl
+QT += widgets
 
-CONFIG += console
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = video
+TARGET = usb-camera
 TEMPLATE = app
-
-#CONFIG += console c++11
-#CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -29,18 +22,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+linux{
+message("linux Lib")
+MYLIB=-L/usr/local/ffmpeg/lib -lavcodec -lavformat -lavutil
+MYLIB_SDL2=-L/usr/local/lib -lSDL2
+
+}
+
+LIBS += $$MYLIB_SDL2
+
+LIBS += $$MYLIB
+
+LIBS += -lSDL2 \
+        -lavcodec \
+        -lavdevice \
+        -lavfilter \
+        -lavformat \
+        -lswresample \
+        -lavutil \
+        -lswscale
+
+INCLUDEPATH += /usr/local/ffmpeg/include
 
 SOURCES += \
         main.cpp \
-        widget.cpp \
-        XVideoWidget.cpp
+    gather_picture.cpp
 
 HEADERS += \
-        widget.h \
-        XVideoWidget.h
-
-
-FORMS += \
-        widget.ui
-
-
+    gather_picture.h

@@ -1,3 +1,14 @@
+/**
+ * SDL YUV422 USB CAMERA APPLICATION FOR SDL1.2
+ *
+ * 朱勇 Jon
+ * zhuyong_006@163.com
+ * https://blog.csdn.net/zhuyong006
+ *
+ * 本程序实现了USB CAMERA基于UVC模式的显示(当前仅仅支持YUV422即YUYV格式的图像输出)
+ * 2018.12.3
+ * V1.0
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
