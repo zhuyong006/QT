@@ -52,30 +52,25 @@ int main(int argc, char **argv)
 
 
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) {
-            fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
-            exit(1);
-      }
+        fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+        exit(1);
+    }
+	//the third parm(16) mean bpp
+    screen = SDL_SetVideoMode(WIDTH, HEIGHT, 16, 0);
 
-    #ifndef __DARWIN__
-            screen = SDL_SetVideoMode(WIDTH, HEIGHT, 0, 0);
-    #else
-            screen = SDL_SetVideoMode(WIDTH, HEIGHT, 24, 0);
-    #endif
+    if(!screen) {
+        fprintf(stderr, "SDL: could not set video mode - exiting\n");
+        exit(1);
+    }
 
-      if(!screen) {
-            fprintf(stderr, "SDL: could not set video mode - exiting\n");
-            exit(1);
-      }
+    bmp = SDL_CreateYUVOverlay(WIDTH,HEIGHT, SDL_YUY2_OVERLAY, screen);
 
-      bmp = SDL_CreateYUVOverlay(WIDTH,
-        HEIGHT, SDL_YUY2_OVERLAY, screen);
+    p = (unsigned char *) bmp->pixels[0];
 
-      p = (unsigned char *) bmp->pixels[0];
-
-      rect.x = 0;
-      rect.y = 0;
-      rect.w = WIDTH;
-      rect.h = HEIGHT;
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = WIDTH;
+    rect.h = HEIGHT;
 
     init_V4L2();
     gather_picture_init();

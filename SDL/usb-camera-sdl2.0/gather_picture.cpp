@@ -45,21 +45,21 @@ int init_V4L2()
     if(ioctl(g_videofd, VIDIOC_QUERYCAP, &cap) < 0){
         perror("ioctl");
         return -1;
-    }
-    else{
-           printf("driver:\t\t%s\n",cap.driver);
-           printf("card:\t\t%s\n",cap.card);
-          printf("bus_info:\t%s\n",cap.bus_info);
-          printf("version:\t%d\n",cap.version);
-          printf("capabilities:\t%#x\n",cap.capabilities);
-        if ((cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) == V4L2_CAP_VIDEO_CAPTURE)
+    }else{
+
+        printf("driver:\t\t%s\n",cap.driver);
+        printf("card:\t\t%s\n",cap.card);
+        printf("bus_info:\t%s\n",cap.bus_info);
+        printf("version:\t%d\n",cap.version);
+        printf("capabilities:\t%#x\n",cap.capabilities);
+        if((cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) == V4L2_CAP_VIDEO_CAPTURE)
         {
-           printf("Device %s: supports capture.\n", VIDEO_DEV);
+            printf("Device %s: supports capture.\n", VIDEO_DEV);
         }
 
-         if ((cap.capabilities & V4L2_CAP_STREAMING) == V4L2_CAP_STREAMING)
+         if((cap.capabilities & V4L2_CAP_STREAMING) == V4L2_CAP_STREAMING)
          {
-           printf("Device %s: supports streaming.\n", VIDEO_DEV);
+            printf("Device %s: supports streaming.\n", VIDEO_DEV);
          }
     }
 
@@ -84,10 +84,9 @@ int init_V4L2()
     printf("Size: %d,%d\n", fmt.fmt.pix.width, fmt.fmt.pix.height);
     printf("Video stored type: %d\n",fmt.fmt.pix.pixelformat);
     if(fmt.fmt.pix.height != 480){
-      printf("%s,%d: Unable to set format\n",__func__,__LINE__);
-      return -1;
+        printf("%s,%d: Unable to set format\n",__func__,__LINE__);
+        return -1;
     }
-
 
     return 0;
 }
@@ -105,7 +104,7 @@ int gather_picture_init()
      reqbuf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     reqbuf.memory = V4L2_MEMORY_MMAP;
     if(ioctl(g_videofd, VIDIOC_REQBUFS, &reqbuf)==-1)
-       {
+    {
         perror("VIDEO_REQBUFS");
         return -1;
     }
@@ -120,15 +119,15 @@ int gather_picture_init()
         {
             printf("query buffer error\n");
            return -1;
-       }
-       frame_buf.length[i] = buf.length;
-       frame_buf.start[i] = mmap(NULL, buf.length, PROT_READ |PROT_WRITE, MAP_SHARED, g_videofd, buf.m.offset);
-       if(frame_buf.start[i] == MAP_FAILED)
-       {
+        }
+        frame_buf.length[i] = buf.length;
+        frame_buf.start[i] = mmap(NULL, buf.length, PROT_READ |PROT_WRITE, MAP_SHARED, g_videofd, buf.m.offset);
+        if(frame_buf.start[i] == MAP_FAILED)
+        {
             printf("buffer map error:%s,%d\n", __func__, __LINE__);
             return-1;
-       }
-       video_enqueue(i);//帧缓存入队
+        }
+        video_enqueue(i);//帧缓存入队
      }
 
     return 0;

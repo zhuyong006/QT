@@ -54,20 +54,17 @@ int main(int argc, char **argv)
 
 
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) {
-            fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
-            exit(1);
-      }
+        fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+        exit(1);
+    }
 
-    #ifdef __DARWIN__
-            screen = SDL_CreateWindow(WIDTH, HEIGHT, 0, 0);
-    #else
-            screen = SDL_CreateWindow("usb camera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,WIDTH,HEIGHT,SDL_WINDOW_OPENGL);
-    #endif
 
-      if(!screen) {
-            fprintf(stderr, "SDL: could not set video mode - exiting\n");
-            exit(1);
-      }
+    screen = SDL_CreateWindow("usb camera", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,WIDTH,HEIGHT,SDL_WINDOW_OPENGL);
+
+    if(!screen) {
+        fprintf(stderr, "SDL: could not set video mode - exiting\n");
+        exit(1);
+    }
 
     sdlRenderer = SDL_CreateRenderer(screen, -1, 0);
 
@@ -86,7 +83,6 @@ int main(int argc, char **argv)
     while(1){
         for(i = 0; i < 4; i++){
             video_getframe(i);
-            //write(sock, frame_buf[i].start, frame_buf[i].length);
             /* SDL_UpdateTexture
              * 最后一个参数：窗口每行显示的字节数
              */
