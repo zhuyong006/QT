@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     percent = 0;
+    ui->progressBar->set
     ui->progressBar->setValue(0);
     timer = new QTimer(this);
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(do_progressbar()));

@@ -10,6 +10,7 @@ QT += widgets
 
 TARGET = usb-camera
 TEMPLATE = app
+CONFIG += static
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -24,23 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 linux{
 message("linux Lib")
-MYLIB=-L/usr/local/ffmpeg/lib -lavcodec -lavformat -lavutil
 MYLIB_SDL2=-L/usr/local/lib -lSDL2
-
 }
 
 LIBS += $$MYLIB_SDL2
 
-LIBS += $$MYLIB
 
-LIBS += -lSDL2 \
-        -lavcodec \
-        -lavdevice \
-        -lavfilter \
-        -lavformat \
-        -lswresample \
-        -lavutil \
-        -lswscale
 
 INCLUDEPATH += /usr/local/ffmpeg/include
 

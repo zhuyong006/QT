@@ -25,9 +25,7 @@
 #include <linux/fb.h>
 #include <pthread.h>
 
-#include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-#include <libswscale/swscale.h>
+
 
 extern "C"
 {

@@ -34,11 +34,13 @@ INCLUDEPATH += /usr/local/ffmpeg/include
 SOURCES += \
         main.cpp \
         xplay2.cpp \
-    xdemux.cpp
+        XDecode.cpp \
+        XDemux.cpp
 
 HEADERS += \
         xplay2.h \
-    xdemux.h
+        XDecode.h \
+        XDemux.h
 
 FORMS += \
         xplay2.ui
